@@ -1,0 +1,20 @@
+
+
+
+# https://stackoverflow.com/questions/34051747/get-environment-variable-from-docker-container/34052766
+docker exec <container_id> bash -c 'echo "$ENV_VAR"'
+
+
+docker exec $(docker ps -aqf "name=nginx_tutorial") bash -c 'echo "$MOCKERSERVER_CONTAINER_ID"'
+
+# MOCKSERVER_MAX_EXPECTATIONS: 342
+
+
+https://github.com/hashicorp/terraform/issues/19198
+https://github.com/hashicorp/terraform/issues/17229
+
+
+terraform import docker_container.nginx $(docker inspect -f {{.ID}} nginx_tutorial)
+
+terraform docker_container.nginx $(docker inspect -f {{.ID}} nginx_tutorial)
+
