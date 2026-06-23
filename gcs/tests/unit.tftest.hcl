@@ -1,5 +1,8 @@
-mock_provider "google" {
-  data "google_storage_bucket" "bucket" {
+mock_provider "google" {}
+
+override_data {
+  target = data.google_storage_bucket.bucket
+  values = {
     name          = "my-bucket-name"
     project       = "my-project-id"
     location      = "US"
@@ -62,7 +65,7 @@ run "verify_gcs_module_outputs_without_project" {
   }
 
   assert {
-    condition     = output.project == "my-project-id"
+    condition     = output.project == null
     error_message = "Output 'project' does not match the expected value"
   }
 }
